@@ -122,25 +122,25 @@ def DNATraceBack(Seq_1, Seq_2, L1, L2, Matrix, Score_Matrix):
         if L1 > 0 and L2 > 0 and Matrix[L1][L2] == Diaganol:
             Aligned_Seq1 = Seq_1[L1 - 1] + Aligned_Seq1
             Aligned_Seq2 = Seq_2[L2 - 1] + Aligned_Seq2
-            if Score_Matrix[L1 - 1][L2 - 1] == 1:
+            if Score_Matrix[L1 - 1][L2 - 1] >= 1:
                 Aligned_Match = "|" + Aligned_Match
-                Score += Score_Matrix[L1 - 1][L2 - 1]
+                Score += Matrix[L1 - 1][L2 - 1] * Score_Matrix[L1 - 1][L2 - 1]
             else:
                 Aligned_Match = " " + Aligned_Match
-                Score += Score_Matrix[L1 - 1][L2 - 1]
+                Score += Matrix[L1 - 1][L2 - 1] * Score_Matrix[L1 - 1][L2 - 1]
             L1 -= 1
             L2 -= 1
         elif L1 > 0 and Matrix[L1][L2] == Left:
             Aligned_Seq1 = Seq_1[L1 - 1] + Aligned_Seq1
             Aligned_Seq2 = "-" + Aligned_Seq2
             Aligned_Match = " " + Aligned_Match
-            Score += Gap
+            Score += Matrix[L1 - 1][L2] * Gap
             L1 -= 1
         else:
             Aligned_Seq2 = Seq_2[L2 - 1] + Aligned_Seq2
             Aligned_Seq1 = "-" + Aligned_Seq1
             Aligned_Match = " " + Aligned_Match
-            Score += Gap
+            Score += Matrix[L1][L2 - 1] * Gap
             L2 -= 1
     print("The Global Alignment Between First And Second Sequences")
     print(Aligned_Seq1)
@@ -162,23 +162,23 @@ def ProteinTraceBack(Seq_1, Seq_2, L1, L2, Matrix, scoreMatrix):
             Aligned_Seq2 = Seq_2[L2 - 1] + Aligned_Seq2
             if(Seq_1[L1 - 1] == Seq_2[L2 - 1]):
                 Aligned_Match = "|" + Aligned_Match
-                Score += scoreMatrix[L1 - 1][L2 - 1]
+                Score += Matrix[L1 - 1][L2 - 1] * scoreMatrix[L1 - 1][L2 - 1]
             else:
                 Aligned_Match = " " + Aligned_Match
-                Score += scoreMatrix[L1 - 1][L2 - 1]
+                Score += Matrix[L1 - 1][L2 - 1] * scoreMatrix[L1 - 1][L2 - 1]
             L1 -= 1
             L2 -= 1
         elif Matrix[L1][L2] == Left:
             Aligned_Seq1 = Seq_1[L1 - 1] + Aligned_Seq1
             Aligned_Seq2 = "-" + Aligned_Seq2
             Aligned_Match = " " + Aligned_Match
-            Score += Gap
+            Score += Matrix[L1 - 1][L2] * Gap
             L1 -= 1
         else:
             Aligned_Seq2 = Seq_2[L2 - 1] + Aligned_Seq2
             Aligned_Seq1 = "-" + Aligned_Seq1
             Aligned_Match = " " + Aligned_Match
-            Score += Gap
+            Score += Matrix[L1][L2 - 1] * Gap
             L2 -= 1
     print("The Global Alignment Between First And Second Sequences")
     print(Aligned_Seq1)
